@@ -1,0 +1,137 @@
+<link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+<!------ Include the above in your HEAD tag ---------->
+
+<!doctype html>
+<html lang="en">
+
+<head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Fonts -->
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com">
+    <link href="https://fonts.googleapis.com/css?family=Raleway:300,400,600" rel="stylesheet" type="text/css">
+
+    <link rel="stylesheet" href="/stylesheets/style.css">
+
+    <link rel="icon" href="Favicon.png">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css">
+
+    <title>EasyFund</title>
+</head>
+
+<body>
+    <nav class="navbar">
+        <span class="navbar-brand">EasyFund</span>
+    </nav>
+
+    <main class="my-form">
+        <div class="cotainer">
+            <div class="row justify-content-center">
+                <div class="col-md-8">
+                    <div class="card">
+                        <div class="card-header">Campaign Registration</div>
+                        <div class="card-body">
+                            <form name="my-form" onsubmit="return validform()" action="#" method="">
+                                <div class="form-group row">
+                                    <label for="title" class="col-md-4 col-form-label text-md-right">Title</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="title" class="form-control" name="title">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="description"
+                                        class="col-md-4 col-form-label text-md-right">Description</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="description" class="form-control" name="description">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="min_contribution" class="col-md-4 col-form-label text-md-right">Minimum
+                                        Contribution</label>
+                                    <div class="col-md-6">
+                                        <input type="number" id="min_contribution" class="form-control"
+                                            name="min_contribution">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="team_members" class="col-md-4 col-form-label text-md-right">Team
+                                        Members</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="team_members" class="form-control" name="team_members">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="public_address" class="col-md-4 col-form-label text-md-right">Public
+                                        Address</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="public_address" class="form-control"
+                                            name="public_address">
+                                    </div>
+                                </div>
+
+                                <div class="form-group row">
+                                    <label for="private_key" class="col-md-4 col-form-label text-md-right">Private
+                                        Key</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="private_key" class="form-control" name="private_key">
+                                    </div>
+                                </div>
+                                <div class="form-group row">
+                                    <label for="password" class="col-md-4 col-form-label text-md-right">Password</label>
+                                    <div class="col-md-6">
+                                        <input type="text" id="password" class="form-control" name="password">
+                                    </div>
+                                </div>
+                                <div class="col-md-6 offset-md-4">
+                                    <button type="button" class="btn btn-primary" onclick="registerCampaign()">
+                                        Register
+                                    </button>
+                                </div>
+                        </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        </div>
+
+    </main>
+
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+    <script>
+
+
+        function registerCampaign() {
+
+            $.post("/registerCampaign",
+                {
+                    title: document.getElementById('title').value,
+                    description: document.getElementById('description').value,
+                    minContri: document.getElementById('min_contribution').value,
+                    teamName: document.getElementById('team_members').value,
+                    publicAddress: document.getElementById('public_address').value,
+                    privateKey: document.getElementById('private_key').value,
+                    password: document.getElementById('password').value,
+                },
+                function (data, status) {
+                    if (data.status == true) {
+                        window.location.href = "/";
+                    } else {
+                        alert("Registration failed");
+                    }
+                });
+        }
+    </script>
+</body>
+
+</html>

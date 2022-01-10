@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar">
+    <span class="navbar-brand">EasyFund</span>
+  </nav>
+  <div class="nav-side-menu">
+    <div class="menu-list">
+
+      <ul id="menu-content" class="menu-content collapse out">
+        <li>
+          <a><i class="fa fa-dashboard">Welcome USER</i></a>
+        </li>
+        <li data-toggle="collapse" data-target="#products" class="collapsed">
+          <a href="/campaign"><i class="fa fa-gift fa-lg"></i>Home</a>
+      </li>
+      <li data-toggle="collapse" data-target="#service" class="collapsed active">
+          <a href="/campaign/list"><i class="fa fa-globe fa-lg"></i>Requests</a>
+      </li>
+      <li data-toggle="collapse" data-target="#detailsCollapse" class="collapsed">
+          <a href="/logout"><i class="fa fa-user fa-lg"></i>Logout</a>
+      </li>
+      </ul>
+    </div>
+  </div>
+  <div class="my-container">
+    <main class="my-form">
+      <div class="cotainer">
+        <div class="row justify-content-center">
+          <div class="col-md-8">
+            <div class="card">
+              <div class="card-header">Request Amount</div>
+              <div class="card-body">
+                <form name="my-form" onsubmit="return validform()" action="#" method="">
+                  <div class="form-group row">
+                    <label for="purpose" class="col-md-4 col-form-label text-md-right">Purpose</label>
+                    <div class="col-md-6">
+                      <input type="text" id="purpose" class="form-control" name="purpose">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="amount" class="col-md-4 col-form-label text-md-right">Amount</label>
+                    <div class="col-md-6">
+                      <input type="number" id="amount" class="form-control" name="amount">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="recipient" class="col-md-4 col-form-label text-md-right">Recipient Public
+                      Address</label>
+                    <div class="col-md-6">
+                      <input type="text" id="recipient" class="form-control" name="recipient">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="payer" class="col-md-4 col-form-label text-md-right">Investor Public Address</label>
+                    <div class="col-md-6">
+                      <input type="text" id="payer" class="form-control" name="payer">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="public_address" class="col-md-4 col-form-label text-md-right">Public Key</label>
+                    <div class="col-md-6">
+                      <input type="text" id="public_address" class="form-control" name="public_address">
+                    </div>
+                  </div>
+                  <div class="form-group row">
+                    <label for="private_key" class="col-md-4 col-form-label text-md-right">Private Key</label>
+                    <div class="col-md-6">
+                      <input type="text" id="private_key" class="form-control" name="private_key">
+                    </div>
+                  </div>
+
+                  <div class="col-md-6 offset-md-4">
+                    <button type="button" class="btn btn-primary" onclick="newRequest()">
+                      Request
+                    </button>
+                  </div>
+              </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+
+  </main>
+  <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+  <script>
+
+
+    function newRequest() {
+
+      $.post("/campaign/new",
+        {
+          purpose: document.getElementById('purpose').value,
+          amount: document.getElementById('amount').value,
+          recipient: document.getElementById('recipient').value,
+          payer: document.getElementById('payer').value,
+          publicAddress: document.getElementById('public_address').value,
+          privateKey: document.getElementById('private_key').value,
+        },
+        function (data, status) {
+          if (data.status == true) {
+            window.location.href = "/campaign/list";
+          } else {
+            alert("Request failed");
+          }
+        });
+    }
+  </script>
+</body>
+
+</html>

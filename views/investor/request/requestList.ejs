@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <link rel="stylesheet" href="/stylesheets/style.css">
+  <link href="//netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+  <script src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+</head>
+
+<body>
+  <nav class="navbar">
+    <span class="navbar-brand">EasyFund</span>
+  </nav>
+  <div class="nav-side-menu">
+    <div class="menu-list">
+
+      <ul id="menu-content" class="menu-content collapse out">
+        <li>
+          <a>
+            <i class="fa fa-dashboard">Welcome USER</i>
+          </a>
+        </li>
+
+        <li data-toggle="collapse" data-target="#products" class="collapsed">
+          <a href="/investor/newList"><i class="fa fa-gift fa-lg"></i>New Campaign</a>
+      </li>
+      <li data-toggle="collapse" data-target="#service" class="collapsed ">
+          <a href="/investor/investedList"><i class="fa fa-globe fa-lg"></i>Invested Campaign</a>
+      </li>
+      <li data-toggle="collapse" data-target="#new" class="collapsed active">
+          <a href="/investor/requestList"><i class="fa fa-car fa-lg"></i>Requests</a>
+      </li>
+      <li data-toggle="collapse" data-target="#detailsCollapse" class="collapsed">
+          <a href="/logout"><i class="fa fa-user fa-lg"></i>Logout</a>
+      </li>
+        
+      </ul>
+    </div>
+  </div>
+  <div class="my-container">
+    <div class="my-row">
+        <h3>Request List</h3>
+      <div class="table-responsive table-bordered movie-table">
+        <table class="table movie-table">
+          <thead>
+            <tr class="movie-table-head">
+              <th>Sl No</th>
+              <th>Recipient</th>
+              <th>Campaign Title</th>
+              <th>Purpose</th>
+              <th>Amount</th>
+              <th>Action</th>
+            </tr>
+          </thead>
+          <tbody>
+            <%
+            var len = list.length;
+            for(var i = 0;i < len;i++){
+            %>
+            <!--row-->
+            <tr class="dark-row">
+            <td><%=i+1%></td>
+            <td> <%=list[i].recipient%> </td>
+            <td> <%=list[i].title%></td>
+            <td> <%=list[i].purpose%></td>
+            <td> <%=list[i].amount%></td>
+            <td> 
+            <%
+            if(list[i].status==0){
+              //respond
+              %>
+              <button type="button" class="btn btn-primary" style="float: right;" onclick="goto(<%=list[i].reqID%>)">
+                Respond
+            </button>
+              <%
+            }else if(list[i].status==1){
+              //approved
+              %>
+              Approved and Paid
+              <%
+            }else{
+              //rejected
+              %>
+              Rejected
+              <%
+            }
+            %>
+            
+            </td>
+            </tr>
+            <!--/.row-->
+
+            <%
+            }
+            %>
+
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+  <script>
+    function goto(id) {
+        window.location.href = '/investor/respondForm?reqID='+id;
+    }
+</script>
+</body>
+
+</html>

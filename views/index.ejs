@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <link href="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+    <link rel="stylesheet" href="/stylesheets/style.css">
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+
+</head>
+
+<body>
+    <nav class="navbar">
+        <span class="navbar-brand">EasyFund</span>
+    </nav>
+    <div class="container login-container">
+
+        <div class="row">
+            <div class="col-md-6 login-form-1">
+                <h3>Campaign Login</h3>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Public Address *" value="" id="c_publicAddress" name="c_publicAddress" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Your Password *" value="" id="c_password" name="c_password" />
+                    </div>
+                    <div class="form-group">
+                        <input type="button" class="btnSubmit" value="Login" onclick="loginCampaign()" />
+                    </div>
+                    <div class="form-group">
+
+                        <a href="/register-campaign" class="ForgetPwd" value="Login">Doesn't have an Account?...Create here</a>
+                    </div>
+                </form>
+            </div>
+            <div class="col-md-6 login-form-2">
+                <h3>Investor Login</h3>
+                <form>
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Public Address *" value="" id="i_publicAddress" name="i_publicAddress" />
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control" placeholder="Your Password *" value="" id="i_password" name="i_password"/>
+                    </div>
+                    <div class="form-group">
+                        <input type="button" class="btnSubmit" value="Login" onclick="loginInvest()"/>
+                    </div>
+                    <div class="form-group">
+
+                        <a href="/register-investor" class="ForgetPwd" value="Login">Doesn't have an Account?...Create here</a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script>
+
+        function loginInvest() {
+            $.post("/loginInvestor",
+                {
+                    publicAddress: document.getElementById('i_publicAddress').value,
+                    password: document.getElementById('i_password').value,
+                },
+                function (data, status) {
+                    if (data.status == true) {
+                        window.location.href = "/investor/newList";
+                    } else {
+                        alert("Login failed");
+                    }
+                });
+        }
+        function loginCampaign() {
+            $.post("/loginCampaign",
+                {
+                    publicAddress: document.getElementById('c_publicAddress').value,
+                    password: document.getElementById('c_password').value,
+                },
+                function (data, status) {
+                    if (data.status == true) {
+                        window.location.href = "/campaign";
+                    } else {
+                        alert("Login failed");
+                    }
+                });
+        }
+    </script>
+</body>
+
+</html>
